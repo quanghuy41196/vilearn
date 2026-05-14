@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useSearchParams } from "react-router-dom";
 import { useAuth } from "./hooks/useAuth";
 import AppLayout from "./components/layout/AppLayout";
 import LoginPage from "./pages/auth/LoginPage";
@@ -19,6 +19,12 @@ import HostLobbyPage from "./pages/game/HostLobbyPage";
 import PlayerJoinPage from "./pages/game/PlayerJoinPage";
 import PlayerGamePage from "./pages/game/PlayerGamePage";
 
+function PlayRedirect() {
+  const [searchParams] = useSearchParams();
+  const pin = searchParams.get("pin") ?? "";
+  return <Navigate to={`/game/join${pin ? `?pin=${pin}` : ""}`} replace />;
+}
+
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated } = useAuth();
   if (!isAuthenticated) return <Navigate to="/login" replace />;
@@ -31,6 +37,7 @@ export default function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/game/join" element={<PlayerJoinPage />} />
+      <Route path="/play" element={<PlayRedirect />} />
       <Route path="/game/play" element={<PlayerGamePage />} />
 
       <Route

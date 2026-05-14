@@ -56,7 +56,9 @@ export default function HostLobbyPage() {
           <div className="grid lg:grid-cols-2 gap-6">
             <div className="bg-white text-gray-900 rounded-2xl p-8 text-center">
               <p className="text-sm text-gray-500">Tham gia tại</p>
-              <p className="text-3xl font-bold text-indigo-600 mt-1">vilearn.vn/play</p>
+              <p className="text-xl font-bold text-indigo-600 mt-1 break-all">
+                {window.location.origin}/game/join?pin={mockGame.pin}
+              </p>
               <p className="text-sm text-gray-500 mt-6">Mã PIN</p>
               <div className="flex items-center justify-center gap-3 mt-2">
                 <p className="text-6xl font-black tracking-widest text-gray-900">

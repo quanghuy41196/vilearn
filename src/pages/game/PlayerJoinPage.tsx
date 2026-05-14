@@ -1,13 +1,15 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { GraduationCap, ArrowRight, Smile } from "lucide-react";
 
 const avatars = ["🦁", "🐘", "🦊", "🐉", "🦅", "🐧", "🐼", "🐨", "🐯", "🦄", "🐸", "🦉"];
 
 export default function PlayerJoinPage() {
   const navigate = useNavigate();
-  const [step, setStep] = useState<1 | 2>(1);
-  const [pin, setPin] = useState("");
+  const [searchParams] = useSearchParams();
+  const pinFromUrl = searchParams.get("pin") ?? "";
+  const [step, setStep] = useState<1 | 2>(pinFromUrl.length === 6 ? 2 : 1);
+  const [pin, setPin] = useState(pinFromUrl);
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState(avatars[0]);
 
